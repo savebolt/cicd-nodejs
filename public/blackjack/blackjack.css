@@ -1,0 +1,119 @@
+.meja {
+  background: #15803d;
+  color: #fff;
+}
+
+.papan {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.papan h2 {
+  color: #fff;
+}
+
+.nilai {
+  font-weight: normal;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.kartu-baris {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 96px;
+}
+
+.kartu {
+  width: 62px;
+  height: 92px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #222;
+  animation: masuk 0.18s ease-out;
+}
+
+.kartu .bawah {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.kartu.merah {
+  color: #dc2626;
+}
+
+.kartu.tertutup {
+  background: repeating-linear-gradient(45deg, #1e3a8a, #1e3a8a 6px, #2563eb 6px, #2563eb 12px);
+}
+
+@keyframes masuk {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.pesan {
+  margin-top: 12px;
+  min-height: 24px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pesan.menang {
+  color: #bbf7d0;
+}
+
+.pesan.kalah {
+  color: #fecaca;
+}
+
+.pesan.seri {
+  color: #fef08a;
+}
+
+.chip-info {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.taruhan-aktif {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #fef08a;
+  color: #713f12;
+  font-size: 13px;
+}
+
+.chip-cepat,
+.aksi-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.reset {
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .papan {
+    grid-template-columns: 1fr;
+  }
+}

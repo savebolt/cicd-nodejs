@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blackjack</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/blackjack/blackjack.css">
+</head>
+<body>
+  <header>
+    <h1>Blackjack</h1>
+    <nav>
+      <a href="/">Kasir</a>
+      <a href="/blackjack" class="active">Blackjack</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card full meja">
+      <div class="papan">
+        <div class="sisi">
+          <h2>Bandar <span id="nilaiBandar" class="nilai"></span></h2>
+          <div id="kartuBandar" class="kartu-baris"></div>
+        </div>
+
+        <div class="sisi">
+          <h2>Kamu <span id="nilaiPemain" class="nilai"></span></h2>
+          <div id="kartuPemain" class="kartu-baris"></div>
+        </div>
+      </div>
+
+      <div id="pesan" class="pesan"></div>
+    </section>
+
+    <section class="card">
+      <h2>Taruhan</h2>
+      <div class="chip-info">
+        Chip: <strong id="chip">0</strong>
+        <span id="taruhanAktif" class="taruhan-aktif" hidden></span>
+      </div>
+
+      <div class="bayar" id="panelTaruhan">
+        <input type="number" id="taruhan" min="1" step="1" value="50" placeholder="Jumlah taruhan">
+        <button id="btnBagi" class="success">Bagi Kartu</button>
+      </div>
+
+      <div class="chip-cepat">
+        <button type="button" class="small secondary" data-chip="10">+10</button>
+        <button type="button" class="small secondary" data-chip="50">+50</button>
+        <button type="button" class="small secondary" data-chip="100">+100</button>
+        <button type="button" class="small secondary" data-chip="max">Max</button>
+      </div>
+
+      <div class="aksi-main">
+        <button id="btnHit">Hit</button>
+        <button id="btnStand" class="secondary">Stand</button>
+        <button id="btnDouble" class="danger">Double</button>
+      </div>
+
+      <button id="btnReset" class="small secondary reset">Reset chip ke 1000</button>
+    </section>
+
+    <section class="card">
+      <h2>Statistik</h2>
+      <table>
+        <tbody>
+          <tr><th>Menang</th><td id="statMenang">0</td></tr>
+          <tr><th>Kalah</th><td id="statKalah">0</td></tr>
+          <tr><th>Seri</th><td id="statSeri">0</td></tr>
+          <tr><th>Blackjack</th><td id="statBj">0</td></tr>
+          <tr><th>Sisa kartu</th><td id="sisaKartu">0</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card full">
+      <h2>Riwayat Ronde</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Waktu</th>
+            <th>Taruhan</th>
+            <th>Kamu</th>
+            <th>Bandar</th>
+            <th>Hasil</th>
+            <th>Chip</th>
+          </tr>
+        </thead>
+        <tbody id="tabelRiwayat"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/blackjack/blackjack.js"></script>
+</body>
+</html>
