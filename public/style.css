@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f4f7;
+  color: #333;
+}
+
+header {
+  background: #2563eb;
+  color: #fff;
+  padding: 16px 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card.full {
+  grid-column: 1 / -1;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+form,
+.bayar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 100px;
+}
+
+#cari {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button.secondary {
+  background: #6b7280;
+}
+
+button.danger {
+  background: #dc2626;
+}
+
+button.success {
+  background: #16a34a;
+}
+
+button.small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background: #f9fafb;
+}
+
+td.aksi {
+  white-space: nowrap;
+}
+
+td.aksi button {
+  margin-right: 4px;
+}
+
+.total {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+#kembalian {
+  font-weight: bold;
+  color: #16a34a;
+}
+
+.kosong {
+  text-align: center;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}

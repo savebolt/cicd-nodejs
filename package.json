@@ -1,0 +1,15 @@
+{
+  "name": "autodeploy-node",
+  "version": "1.0.0",
+  "description": "Single entry point Node.js server that hosts the kasir web app and auto-deploys itself from GitHub",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "web": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "private": true,
+  "dependencies": {}
+}

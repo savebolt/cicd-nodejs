@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kasir Sederhana</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Kasir Sederhana</h1>
+  </header>
+
+  <main>
+    <!-- CRUD Produk -->
+    <section class="card">
+      <h2>Data Produk</h2>
+      <form id="formProduk">
+        <input type="hidden" id="produkId">
+        <input type="text" id="nama" placeholder="Nama produk" required>
+        <input type="number" id="harga" placeholder="Harga" min="0" required>
+        <input type="number" id="stok" placeholder="Stok" min="0" required>
+        <button type="submit" id="btnSimpan">Tambah</button>
+        <button type="button" id="btnBatal" class="secondary" hidden>Batal</button>
+      </form>
+
+      <input type="text" id="cari" placeholder="Cari produk...">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Stok</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tabelProduk"></tbody>
+      </table>
+    </section>
+
+    <!-- Keranjang -->
+    <section class="card">
+      <h2>Keranjang</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tabelKeranjang"></tbody>
+      </table>
+
+      <div class="total">Total: <span id="total">Rp 0</span></div>
+      <div class="bayar">
+        <input type="number" id="uangBayar" placeholder="Uang bayar" min="0">
+        <button id="btnBayar">Bayar</button>
+      </div>
+      <div id="kembalian"></div>
+    </section>
+
+    <!-- Riwayat -->
+    <section class="card full">
+      <h2>Riwayat Transaksi</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Waktu</th>
+            <th>Item</th>
+            <th>Total</th>
+            <th>Bayar</th>
+            <th>Kembali</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tabelRiwayat"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+node_modules/
+config.json
+.deploy-state.json
+*.log
+.DS_Store

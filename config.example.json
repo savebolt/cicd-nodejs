@@ -1,0 +1,6 @@
+{
+  "repo": "savebolt/cicd-nodejs",
+  "branch": "main",
+  "secret": "",
+  "pollSeconds": 120
+}
