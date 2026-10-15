@@ -44,6 +44,20 @@ The supervisor probes the container at boot and logs which mode it picked:
 
 Either way you do not need CLI access.
 
+### Reading the latest commit
+
+To decide whether anything changed, the supervisor asks the remote for the SHA
+of the branch tip, trying these in order and using the first that answers:
+
+1. `git ls-remote` — only when a git binary exists
+2. `GET /info/refs?service=git-upload-pack` — git's smart-HTTP transport over
+   plain `fetch`. **No rate limit**, no git binary required.
+3. the GitHub REST API — last resort, capped at 60 requests/hour per IP
+
+That order matters on shared hosting: the REST API limit is per IP, so on a
+provider like Danbot it is often already exhausted by other tenants. The git
+protocol endpoint has no such cap, which is what keeps polling dependable.
+
 ## Running it
 
 ```bash

@@ -109,22 +109,55 @@ async function detectMode() {
 
 /* ---------- remote/local revisions ---------- */
 
-async function remoteSha() {
-  if (mode === 'git') {
-    const res = await run('git', ['ls-remote', 'origin', `refs/heads/${config.branch}`]);
-    if (res.ok && res.stdout) return res.stdout.split(/\s+/)[0];
-    if (!res.ok) log('git ls-remote failed:', res.stderr || res.code);
-  }
+const repoUrl = () => `https://github.com/${config.repo}.git`;
 
-  const url = `https://api.github.com/repos/${config.repo}/commits/${config.branch}`;
-  const res = await fetch(url, {
-    headers: {
-      Accept: 'application/vnd.github.sha',
-      'User-Agent': 'autodeploy-node',
-    },
+// git's smart-HTTP transport. No rate limit and no git binary needed, which
+// makes it the most dependable option in a locked-down container.
+async function shaFromGitProtocol() {
+  const res = await fetch(`${repoUrl()}/info/refs?service=git-upload-pack`, {
+    headers: { 'User-Agent': 'git/2.40.0' },
+  });
+  if (!res.ok) throw new Error(`info/refs responded ${res.status}`);
+
+  const body = await res.text();
+  const match = body.match(new RegExp(`([0-9a-f]{40})\\s+refs/heads/${config.branch}(?![\\w/-])`));
+  if (!match) throw new Error(`branch ${config.branch} not found on the remote`);
+  return match[1];
+}
+
+async function shaFromLsRemote() {
+  const res = await run('git', ['ls-remote', repoUrl(), `refs/heads/${config.branch}`]);
+  if (!res.ok || !res.stdout) throw new Error(`git ls-remote failed: ${res.stderr || res.code}`);
+  return res.stdout.split(/\s+/)[0];
+}
+
+// Public but rate limited to 60 requests/hour per IP, so it is only a last
+// resort: on shared hosting that budget is often already spent.
+async function shaFromApi() {
+  const res = await fetch(`https://api.github.com/repos/${config.repo}/commits/${config.branch}`, {
+    headers: { Accept: 'application/vnd.github.sha', 'User-Agent': 'autodeploy-node' },
   });
   if (!res.ok) throw new Error(`GitHub API responded ${res.status}`);
   return (await res.text()).trim();
+}
+
+async function remoteSha() {
+  const sources = mode === 'git'
+    ? [shaFromLsRemote, shaFromGitProtocol, shaFromApi]
+    : [shaFromGitProtocol, shaFromApi];
+
+  const errors = [];
+  for (const source of sources) {
+    try {
+      const sha = await source();
+      if (/^[0-9a-f]{40}$/.test(sha)) return sha;
+      errors.push(`${source.name}: unexpected response "${sha}"`);
+    } catch (err) {
+      errors.push(`${source.name}: ${err.message}`);
+    }
+  }
+
+  throw new Error(`could not read the remote commit (${errors.join('; ')})`);
 }
 
 async function localSha() {
